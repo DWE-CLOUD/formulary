@@ -412,64 +412,6 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
                   </tbody>
                 </table>
               </div>
-
-              {/* Additional Formulary Details */}
-              <div className="p-6 border-t border-gray-200">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3">Prior Authorization Criteria</h3>
-                    <ul className="space-y-2 text-sm text-gray-600">
-                      <li>• Failed first-line therapy (if applicable)</li>
-                      <li>• Documented contraindications to preferred agents</li>
-                      <li>• Clinical documentation of medical necessity</li>
-                      <li>• Prescriber attestation of appropriate monitoring</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3">Step Therapy Requirements</h3>
-                    <ul className="space-y-2 text-sm text-gray-600">
-                      <li>• Trial of Tier 1 generic formulation</li>
-                      <li>• Minimum 30-day trial period</li>
-                      <li>• Documentation of therapeutic failure</li>
-                      <li>• Alternative dosing attempted</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3">Quantity Limits</h3>
-                    <ul className="space-y-2 text-sm text-gray-600">
-                      <li>• 30-day supply limit for new prescriptions</li>
-                      <li>• 90-day supply for maintenance therapy</li>
-                      <li>• Override available for clinical justification</li>
-                      <li>• Prior authorization for quantities exceeding limits</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Cost Analysis */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Pharmacoeconomic Analysis</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-gray-50 rounded">
-                  <div className="text-xl font-bold text-gray-900">$0.15</div>
-                  <div className="text-sm text-gray-600">Cost per dose</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded">
-                  <div className="text-xl font-bold text-gray-900">$4.50</div>
-                  <div className="text-sm text-gray-600">Monthly cost</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded">
-                  <div className="text-xl font-bold text-gray-900">$54.00</div>
-                  <div className="text-sm text-gray-600">Annual cost</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded">
-                  <div className="text-xl font-bold text-gray-900">$3,200</div>
-                  <div className="text-sm text-gray-600">Cost per QALY</div>
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -610,7 +552,7 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
                 
                 <div className="p-4 bg-gray-50 rounded">
                   <h3 className="font-medium text-gray-900 mb-2">Renal Impairment</h3>
-                  <p className="text-sm text-gray-700">Dose adjustment required if CrCl &lt; 60 mL/min</p>
+                  <p className="text-sm text-gray-700">Dose adjustment required if CrCl < 60 mL/min</p>
                 </div>
                 
                 <div className="p-4 bg-gray-50 rounded">
