@@ -135,6 +135,7 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
     medicaid: 92,
     va: 100
   };
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
