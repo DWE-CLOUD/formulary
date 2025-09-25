@@ -526,10 +526,10 @@ export default function Home() {
 
       {/* Drug Detail Modal */}
       {isModalOpen && selectedDrug && (
-        <div className="fixed inset-0 z-50 overflow-hidden">
+        <div className="fixed inset-0 z-50 overflow-hidden animate-in fade-in duration-300">
           {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+            className="absolute inset-0 bg-black/60 backdrop-blur-md transition-all duration-500 animate-in fade-in"
             onClick={() => {
               setIsModalOpen(false);
               setIsExpanded(false);
@@ -539,32 +539,73 @@ export default function Home() {
           {/* Modal */}
           <div className={`absolute transition-all duration-500 ease-out ${
             isExpanded 
-              ? 'inset-0' 
-              : 'top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-auto max-h-[90vh]'
+              ? 'inset-0 animate-in slide-in-from-bottom duration-700' 
+              : 'top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-auto max-h-[85vh] animate-in zoom-in-95 slide-in-from-bottom-4 duration-500'
           }`}>
-            <div className={`bg-white rounded-3xl shadow-2xl overflow-hidden h-full transition-all duration-500 ${
-              isExpanded ? 'rounded-none' : ''
+            <div className={`bg-gradient-to-br from-white via-gray-50 to-blue-50 shadow-2xl overflow-hidden h-full transition-all duration-700 ${
+              isExpanded ? 'rounded-none' : 'rounded-3xl border border-gray-200/50'
             }`}>
               {/* Header */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 border-b border-gray-200">
+              <div className={`relative overflow-hidden transition-all duration-700 ${
+                isExpanded 
+                  ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 p-8' 
+                  : 'bg-gradient-to-r from-blue-100 via-purple-100 to-indigo-100 p-6'
+              } border-b border-white/20`}>
+                {/* Animated Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
+                </div>
+                
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-blue-100">
-                      <Pill className="w-8 h-8 text-blue-600" />
+                    <div className={`transition-all duration-500 ${
+                      isExpanded 
+                        ? 'p-4 rounded-2xl bg-white/20 backdrop-blur-sm shadow-lg' 
+                        : 'p-3 rounded-full bg-white shadow-md'
+                    }`}>
+                      <Pill className={`transition-all duration-500 ${
+                        isExpanded 
+                          ? 'w-12 h-12 text-white' 
+                          : 'w-8 h-8 text-blue-600'
+                      }`} />
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900">{selectedDrug.name}</h2>
-                      <p className="text-gray-600">{selectedDrug.genericName}</p>
-                      <p className="text-sm text-gray-500">{selectedDrug.strength} • {selectedDrug.manufacturer}</p>
+                      <h2 className={`font-bold transition-all duration-500 ${
+                        isExpanded 
+                          ? 'text-4xl text-white mb-2' 
+                          : 'text-2xl text-gray-900'
+                      }`}>
+                        {selectedDrug.name}
+                      </h2>
+                      <p className={`transition-all duration-500 ${
+                        isExpanded 
+                          ? 'text-xl text-white/90' 
+                          : 'text-gray-600'
+                      }`}>
+                        {selectedDrug.genericName}
+                      </p>
+                      <p className={`text-sm transition-all duration-500 ${
+                        isExpanded 
+                          ? 'text-white/70 mt-1' 
+                          : 'text-gray-500'
+                      }`}>
+                        {selectedDrug.strength} • {selectedDrug.manufacturer}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setIsExpanded(!isExpanded)}
-                      className="p-2 rounded-full hover:bg-white/50 transition-colors"
+                      className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                        isExpanded 
+                          ? 'bg-white/20 hover:bg-white/30 backdrop-blur-sm' 
+                          : 'bg-white/80 hover:bg-white shadow-md'
+                      }`}
                     >
-                      <ChevronRight className={`w-5 h-5 text-gray-600 transition-transform duration-300 ${
-                        isExpanded ? 'rotate-180' : ''
+                      <ChevronRight className={`w-5 h-5 transition-all duration-500 ${
+                        isExpanded 
+                          ? 'rotate-180 text-white' 
+                          : 'text-gray-600'
                       }`} />
                     </button>
                     <button
@@ -572,19 +613,31 @@ export default function Home() {
                         setIsModalOpen(false);
                         setIsExpanded(false);
                       }}
-                      className="p-2 rounded-full hover:bg-white/50 transition-colors"
+                      className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                        isExpanded 
+                          ? 'bg-white/20 hover:bg-white/30 backdrop-blur-sm' 
+                          : 'bg-white/80 hover:bg-white shadow-md'
+                      }`}
                     >
-                      <X className="w-5 h-5 text-gray-600" />
+                      <X className={`w-5 h-5 transition-all duration-300 ${
+                        isExpanded ? 'text-white' : 'text-gray-600'
+                      }`} />
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Content */}
-              <div className={`${isExpanded ? 'h-full overflow-y-auto' : 'max-h-96 overflow-y-auto'} p-6`}>
+              <div className={`transition-all duration-500 ${
+                isExpanded ? 'h-full overflow-y-auto' : 'max-h-96 overflow-y-auto'
+              } ${isExpanded ? 'p-8' : 'p-6'}`}>
                 {/* Status and Tier */}
-                <div className="flex items-center gap-4 mb-6">
-                  <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                <div className={`flex items-center gap-4 transition-all duration-500 ${
+                  isExpanded ? 'mb-8' : 'mb-6'
+                }`}>
+                  <span className={`px-6 py-3 rounded-full font-medium shadow-lg transition-all duration-500 ${
+                    isExpanded ? 'text-base' : 'text-sm'
+                  } ${
                     selectedDrug.status === 'Preferred' ? 'bg-green-100 text-green-700' :
                     selectedDrug.status === 'Brand' ? 'bg-purple-100 text-purple-700' :
                     selectedDrug.status === 'Generic' ? 'bg-gray-100 text-gray-700' :
@@ -592,100 +645,168 @@ export default function Home() {
                   }`}>
                     {selectedDrug.status}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <DollarSign className="w-4 h-4 text-gray-500" />
-                    <span className="text-lg font-semibold text-gray-900">{selectedDrug.copay}</span>
-                    <span className="text-sm text-gray-500">{selectedDrug.tier}</span>
+                  <div className={`flex items-center gap-3 bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 rounded-full shadow-sm transition-all duration-500 ${
+                    isExpanded ? 'px-6 py-3' : ''
+                  }`}>
+                    <DollarSign className={`text-green-600 transition-all duration-500 ${
+                      isExpanded ? 'w-6 h-6' : 'w-4 h-4'
+                    }`} />
+                    <span className={`font-bold text-green-800 transition-all duration-500 ${
+                      isExpanded ? 'text-xl' : 'text-lg'
+                    }`}>{selectedDrug.copay}</span>
+                    <span className={`text-green-600 font-medium transition-all duration-500 ${
+                      isExpanded ? 'text-base' : 'text-sm'
+                    }`}>{selectedDrug.tier}</span>
                   </div>
                 </div>
 
                 {/* Description */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
-                  <p className="text-gray-700 leading-relaxed">{selectedDrug.description}</p>
+                <div className={`transition-all duration-500 ${isExpanded ? 'mb-8' : 'mb-6'}`}>
+                  <h3 className={`font-bold text-gray-900 mb-3 transition-all duration-500 ${
+                    isExpanded ? 'text-2xl' : 'text-lg'
+                  }`}>Description</h3>
+                  <div className={`bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border-l-4 border-blue-400 shadow-sm transition-all duration-500 ${
+                    isExpanded ? 'p-6' : ''
+                  }`}>
+                    <p className={`text-gray-700 leading-relaxed transition-all duration-500 ${
+                      isExpanded ? 'text-lg' : ''
+                    }`}>{selectedDrug.description}</p>
+                  </div>
                 </div>
 
                 {/* Use Case */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Activity className="w-5 h-5 text-blue-500" />
-                    <h3 className="text-lg font-semibold text-gray-900">Use Cases</h3>
+                <div className={`transition-all duration-500 ${isExpanded ? 'mb-8' : 'mb-6'}`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <Activity className={`text-blue-500 transition-all duration-500 ${
+                      isExpanded ? 'w-7 h-7' : 'w-5 h-5'
+                    }`} />
+                    <h3 className={`font-bold text-gray-900 transition-all duration-500 ${
+                      isExpanded ? 'text-2xl' : 'text-lg'
+                    }`}>Use Cases</h3>
                   </div>
-                  <p className="text-gray-700">{selectedDrug.useCase}</p>
+                  <div className={`bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-4 border-l-4 border-green-400 shadow-sm transition-all duration-500 ${
+                    isExpanded ? 'p-6' : ''
+                  }`}>
+                    <p className={`text-gray-700 transition-all duration-500 ${
+                      isExpanded ? 'text-lg' : ''
+                    }`}>{selectedDrug.useCase}</p>
+                  </div>
                 </div>
 
                 {/* Chemical Structure */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Chemical Structure</h3>
-                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-gray-200">
-                    <div className="text-center mb-4">
-                      <div className="text-3xl text-gray-400 font-mono mb-2">
+                <div className={`transition-all duration-500 ${isExpanded ? 'mb-8' : 'mb-6'}`}>
+                  <h3 className={`font-bold text-gray-900 mb-4 transition-all duration-500 ${
+                    isExpanded ? 'text-2xl' : 'text-lg'
+                  }`}>Chemical Structure</h3>
+                  <div className={`bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl border border-gray-200/50 shadow-lg transition-all duration-500 ${
+                    isExpanded ? 'p-8' : 'p-6'
+                  }`}>
+                    <div className="text-center">
+                      <div className={`text-gray-400 font-mono mb-3 transition-all duration-500 ${
+                        isExpanded ? 'text-6xl' : 'text-3xl'
+                      }`}>
                         {selectedDrug.id.includes('metformin') ? '⬢—NH₂—⬢' : 
                          selectedDrug.id.includes('lisinopril') ? '⬢—O—⬢—NH' :
                          selectedDrug.id.includes('atorvastatin') ? 'HO—⬢—COOH' : 
                          '⬢—S—⬢—O'}
                       </div>
-                      <p className="text-sm text-gray-600">{selectedDrug.chemicalName}</p>
+                      <p className={`text-gray-600 font-medium transition-all duration-500 ${
+                        isExpanded ? 'text-base' : 'text-sm'
+                      }`}>{selectedDrug.chemicalName}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Formulary Info */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Current Formulary Status</h3>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className={`transition-all duration-500 ${isExpanded ? 'mb-8' : 'mb-6'}`}>
+                  <h3 className={`font-bold text-gray-900 mb-4 transition-all duration-500 ${
+                    isExpanded ? 'text-2xl' : 'text-lg'
+                  }`}>Current Formulary Status</h3>
+                  <div className={`bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl shadow-sm border border-gray-200/50 transition-all duration-500 ${
+                    isExpanded ? 'p-6' : 'p-4'
+                  }`}>
+                    <div className={`grid gap-6 transition-all duration-500 ${
+                      isExpanded ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-3'
+                    }`}>
                       <div>
-                        <div className="text-sm text-gray-500">Tier Level</div>
-                        <div className="font-semibold text-gray-900">{selectedDrug.tier}</div>
+                        <div className={`text-gray-500 font-medium mb-1 transition-all duration-500 ${
+                          isExpanded ? 'text-base' : 'text-sm'
+                        }`}>Tier Level</div>
+                        <div className={`font-bold text-gray-900 transition-all duration-500 ${
+                          isExpanded ? 'text-xl' : 'text-lg'
+                        }`}>{selectedDrug.tier}</div>
                       </div>
                       <div>
-                        <div className="text-sm text-gray-500">Copay</div>
-                        <div className="font-semibold text-gray-900">{selectedDrug.copay}</div>
+                        <div className={`text-gray-500 font-medium mb-1 transition-all duration-500 ${
+                          isExpanded ? 'text-base' : 'text-sm'
+                        }`}>Copay</div>
+                        <div className={`font-bold text-green-700 transition-all duration-500 ${
+                          isExpanded ? 'text-xl' : 'text-lg'
+                        }`}>{selectedDrug.copay}</div>
                       </div>
                       <div>
-                        <div className="text-sm text-gray-500">Status</div>
-                        <div className="font-semibold text-gray-900">{selectedDrug.status}</div>
+                        <div className={`text-gray-500 font-medium mb-1 transition-all duration-500 ${
+                          isExpanded ? 'text-base' : 'text-sm'
+                        }`}>Status</div>
+                        <div className={`font-bold text-blue-700 transition-all duration-500 ${
+                          isExpanded ? 'text-xl' : 'text-lg'
+                        }`}>{selectedDrug.status}</div>
                       </div>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-gray-200">
-                      <div className="text-sm text-gray-600">{selectedDrug.tierDescription}</div>
+                    <div className={`mt-4 pt-4 border-t border-gray-300/50 transition-all duration-500 ${
+                      isExpanded ? 'mt-6 pt-6' : ''
+                    }`}>
+                      <div className={`text-gray-600 font-medium transition-all duration-500 ${
+                        isExpanded ? 'text-base' : 'text-sm'
+                      }`}>{selectedDrug.tierDescription}</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Side Effects & Contraindications - Only show in expanded mode */}
                 {isExpanded && (
-                  <>
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-2">
-                        <AlertCircle className="w-5 h-5 text-orange-500" />
-                        <h3 className="text-lg font-semibold text-gray-900">Side Effects</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in slide-in-from-bottom duration-700">
+                    <div className="transform hover:scale-105 transition-transform duration-300">
+                      <div className="flex items-center gap-3 mb-4">
+                        <AlertCircle className="w-7 h-7 text-orange-500" />
+                        <h3 className="text-2xl font-bold text-gray-900">Side Effects</h3>
                       </div>
-                      <p className="text-gray-700">{selectedDrug.sideEffects}</p>
-                    </div>
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Shield className="w-5 h-5 text-red-500" />
-                        <h3 className="text-lg font-semibold text-gray-900">Contraindications</h3>
+                      <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-l-4 border-orange-400 shadow-lg">
+                        <p className="text-gray-700 text-lg leading-relaxed">{selectedDrug.sideEffects}</p>
                       </div>
-                      <p className="text-gray-700">{selectedDrug.contraindications}</p>
                     </div>
-                  </>
+                    <div className="transform hover:scale-105 transition-transform duration-300">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Shield className="w-7 h-7 text-red-500" />
+                        <h3 className="text-2xl font-bold text-gray-900">Contraindications</h3>
+                      </div>
+                      <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-6 border-l-4 border-red-400 shadow-lg">
+                        <p className="text-gray-700 text-lg leading-relaxed">{selectedDrug.contraindications}</p>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
 
               {/* Footer Actions */}
-              <div className="border-t border-gray-200 p-6 bg-gray-50">
+              <div className={`border-t border-gray-200/50 bg-gradient-to-r from-gray-50 to-blue-50/30 backdrop-blur-sm transition-all duration-500 ${
+                isExpanded ? 'p-8' : 'p-6'
+              }`}>
                 <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-500">
+                  <div className={`text-gray-500 transition-all duration-500 ${
+                    isExpanded ? 'text-base' : 'text-sm'
+                  }`}>
                     Last updated: Today, 3:45 PM
                   </div>
                   <div className="flex gap-3">
-                    <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button className={`font-medium text-gray-700 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-50 hover:shadow-md transform hover:scale-105 transition-all duration-300 ${
+                      isExpanded ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'
+                    }`}>
                       Add to Favorites
                     </button>
-                    <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                    <button className={`font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg hover:from-blue-700 hover:to-purple-700 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${
+                      isExpanded ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'
+                    }`}>
                       Request Prior Auth
                     </button>
                   </div>
