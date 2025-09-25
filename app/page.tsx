@@ -605,10 +605,10 @@ export default function Home() {
                           : 'bg-white hover:bg-blue-50 shadow-lg border border-blue-200'
                       }`}
                     >
-                      <ChevronRight className={`w-5 h-5 transition-all duration-500 ${
-                        isExpanded 
-                          ? 'rotate-180 text-white' 
-                          : 'text-blue-700'
+                     <ChevronRight className={`w-5 h-5 transition-all duration-300 ${
+                       isExpanded 
+                         ? 'rotate-90 text-white' 
+                         : 'rotate-0 text-blue-700'
                       }`} />
                     </button>
                     <button
