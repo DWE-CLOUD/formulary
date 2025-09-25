@@ -548,25 +548,28 @@ export default function Home() {
               {/* Header */}
               <div className={`relative overflow-hidden transition-all duration-700 ${
                 isExpanded 
-                  ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 p-8' 
-                  : 'bg-gradient-to-r from-blue-100 via-purple-100 to-indigo-100 p-6'
-              } border-b border-white/20`}>
+                  ? 'bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 p-8' 
+                  : 'bg-gradient-to-r from-blue-50 via-slate-50 to-blue-100 p-6'
+              } border-b border-blue-200/30`}>
                 {/* Animated Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-0 left-0 w-full h-full">
+                    <div className="absolute top-4 left-8 w-32 h-32 bg-blue-300/20 rounded-full blur-3xl animate-pulse"></div>
+                    <div className="absolute bottom-4 right-8 w-24 h-24 bg-cyan-300/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+                  </div>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className={`transition-all duration-500 ${
                       isExpanded 
-                        ? 'p-4 rounded-2xl bg-white/20 backdrop-blur-sm shadow-lg' 
-                        : 'p-3 rounded-full bg-white shadow-md'
+                        ? 'p-4 rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg border border-white/30' 
+                        : 'p-3 rounded-xl bg-white shadow-lg border border-blue-200'
                     }`}>
                       <Pill className={`transition-all duration-500 ${
                         isExpanded 
                           ? 'w-12 h-12 text-white' 
-                          : 'w-8 h-8 text-blue-600'
+                          : 'w-8 h-8 text-blue-700'
                       }`} />
                     </div>
                     <div>
@@ -598,14 +601,14 @@ export default function Home() {
                       onClick={() => setIsExpanded(!isExpanded)}
                       className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                         isExpanded 
-                          ? 'bg-white/20 hover:bg-white/30 backdrop-blur-sm' 
-                          : 'bg-white/80 hover:bg-white shadow-md'
+                          ? 'bg-white/25 hover:bg-white/35 backdrop-blur-sm border border-white/30' 
+                          : 'bg-white hover:bg-blue-50 shadow-lg border border-blue-200'
                       }`}
                     >
                       <ChevronRight className={`w-5 h-5 transition-all duration-500 ${
                         isExpanded 
                           ? 'rotate-180 text-white' 
-                          : 'text-gray-600'
+                          : 'text-blue-700'
                       }`} />
                     </button>
                     <button
@@ -615,8 +618,8 @@ export default function Home() {
                       }}
                       className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                         isExpanded 
-                          ? 'bg-white/20 hover:bg-white/30 backdrop-blur-sm' 
-                          : 'bg-white/80 hover:bg-white shadow-md'
+                          ? 'bg-white/25 hover:bg-white/35 backdrop-blur-sm border border-white/30' 
+                          : 'bg-white hover:bg-blue-50 shadow-lg border border-blue-200'
                       }`}
                     >
                       <X className={`w-5 h-5 transition-all duration-300 ${
@@ -632,23 +635,23 @@ export default function Home() {
                 isExpanded ? 'h-full overflow-y-auto' : 'max-h-96 overflow-y-auto'
               } ${isExpanded ? 'p-8' : 'p-6'}`}>
                 {/* Status and Tier */}
-                <div className={`flex items-center gap-4 transition-all duration-500 ${
+                <div className={`flex items-center gap-6 transition-all duration-500 ${
                   isExpanded ? 'mb-8' : 'mb-6'
                 }`}>
-                  <span className={`px-6 py-3 rounded-full font-medium shadow-lg transition-all duration-500 ${
+                  <span className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-500 border ${
                     isExpanded ? 'text-base' : 'text-sm'
                   } ${
-                    selectedDrug.status === 'Preferred' ? 'bg-green-100 text-green-700' :
-                    selectedDrug.status === 'Brand' ? 'bg-purple-100 text-purple-700' :
-                    selectedDrug.status === 'Generic' ? 'bg-gray-100 text-gray-700' :
-                    'bg-blue-100 text-blue-700'
+                    selectedDrug.status === 'Preferred' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' :
+                    selectedDrug.status === 'Brand' ? 'bg-blue-50 text-blue-800 border-blue-200' :
+                    selectedDrug.status === 'Generic' ? 'bg-slate-50 text-slate-800 border-slate-200' :
+                    'bg-blue-50 text-blue-800 border-blue-200'
                   }`}>
                     {selectedDrug.status}
                   </span>
-                  <div className={`flex items-center gap-3 bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 rounded-full shadow-sm transition-all duration-500 ${
+                  <div className={`flex items-center gap-3 bg-gradient-to-r from-emerald-50 to-green-50 px-4 py-2 rounded-xl shadow-lg border border-emerald-200 transition-all duration-500 ${
                     isExpanded ? 'px-6 py-3' : ''
                   }`}>
-                    <DollarSign className={`text-green-600 transition-all duration-500 ${
+                    <DollarSign className={`text-emerald-700 transition-all duration-500 ${
                       isExpanded ? 'w-6 h-6' : 'w-4 h-4'
                     }`} />
                     <span className={`font-bold text-green-800 transition-all duration-500 ${
@@ -656,7 +659,7 @@ export default function Home() {
                     }`}>{selectedDrug.copay}</span>
                     <span className={`text-green-600 font-medium transition-all duration-500 ${
                       isExpanded ? 'text-base' : 'text-sm'
-                    }`}>{selectedDrug.tier}</span>
+                    }`}>• {selectedDrug.tier}</span>
                   </div>
                 </div>
 
@@ -665,10 +668,10 @@ export default function Home() {
                   <h3 className={`font-bold text-gray-900 mb-3 transition-all duration-500 ${
                     isExpanded ? 'text-2xl' : 'text-lg'
                   }`}>Description</h3>
-                  <div className={`bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border-l-4 border-blue-400 shadow-sm transition-all duration-500 ${
+                  <div className={`bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 border border-blue-200 shadow-lg transition-all duration-500 ${
                     isExpanded ? 'p-6' : ''
                   }`}>
-                    <p className={`text-gray-700 leading-relaxed transition-all duration-500 ${
+                    <p className={`text-slate-700 leading-relaxed transition-all duration-500 ${
                       isExpanded ? 'text-lg' : ''
                     }`}>{selectedDrug.description}</p>
                   </div>
@@ -678,16 +681,16 @@ export default function Home() {
                 <div className={`transition-all duration-500 ${isExpanded ? 'mb-8' : 'mb-6'}`}>
                   <div className="flex items-center gap-3 mb-3">
                     <Activity className={`text-blue-500 transition-all duration-500 ${
-                      isExpanded ? 'w-7 h-7' : 'w-5 h-5'
+                      isExpanded ? 'w-7 h-7' : 'w-6 h-6'
                     }`} />
                     <h3 className={`font-bold text-gray-900 transition-all duration-500 ${
                       isExpanded ? 'text-2xl' : 'text-lg'
                     }`}>Use Cases</h3>
                   </div>
-                  <div className={`bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-4 border-l-4 border-green-400 shadow-sm transition-all duration-500 ${
+                  <div className={`bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-200 shadow-lg transition-all duration-500 ${
                     isExpanded ? 'p-6' : ''
                   }`}>
-                    <p className={`text-gray-700 transition-all duration-500 ${
+                    <p className={`text-slate-700 transition-all duration-500 ${
                       isExpanded ? 'text-lg' : ''
                     }`}>{selectedDrug.useCase}</p>
                   </div>
@@ -699,7 +702,7 @@ export default function Home() {
                     isExpanded ? 'text-2xl' : 'text-lg'
                   }`}>Chemical Structure</h3>
                   <div className={`bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl border border-gray-200/50 shadow-lg transition-all duration-500 ${
-                    isExpanded ? 'p-8' : 'p-6'
+                    isExpanded ? 'p-10' : 'p-6'
                   }`}>
                     <div className="text-center">
                       <div className={`text-gray-400 font-mono mb-3 transition-all duration-500 ${
@@ -710,7 +713,7 @@ export default function Home() {
                          selectedDrug.id.includes('atorvastatin') ? 'HO—⬢—COOH' : 
                          '⬢—S—⬢—O'}
                       </div>
-                      <p className={`text-gray-600 font-medium transition-all duration-500 ${
+                      <p className={`text-slate-600 font-medium transition-all duration-500 ${
                         isExpanded ? 'text-base' : 'text-sm'
                       }`}>{selectedDrug.chemicalName}</p>
                     </div>
@@ -722,13 +725,13 @@ export default function Home() {
                   <h3 className={`font-bold text-gray-900 mb-4 transition-all duration-500 ${
                     isExpanded ? 'text-2xl' : 'text-lg'
                   }`}>Current Formulary Status</h3>
-                  <div className={`bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl shadow-sm border border-gray-200/50 transition-all duration-500 ${
+                  <div className={`bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl shadow-lg border border-blue-200 transition-all duration-500 ${
                     isExpanded ? 'p-6' : 'p-4'
                   }`}>
                     <div className={`grid gap-6 transition-all duration-500 ${
                       isExpanded ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-3'
                     }`}>
-                      <div>
+                      <div className="text-center">
                         <div className={`text-gray-500 font-medium mb-1 transition-all duration-500 ${
                           isExpanded ? 'text-base' : 'text-sm'
                         }`}>Tier Level</div>
@@ -736,7 +739,7 @@ export default function Home() {
                           isExpanded ? 'text-xl' : 'text-lg'
                         }`}>{selectedDrug.tier}</div>
                       </div>
-                      <div>
+                      <div className="text-center">
                         <div className={`text-gray-500 font-medium mb-1 transition-all duration-500 ${
                           isExpanded ? 'text-base' : 'text-sm'
                         }`}>Copay</div>
@@ -744,7 +747,7 @@ export default function Home() {
                           isExpanded ? 'text-xl' : 'text-lg'
                         }`}>{selectedDrug.copay}</div>
                       </div>
-                      <div>
+                      <div className="text-center">
                         <div className={`text-gray-500 font-medium mb-1 transition-all duration-500 ${
                           isExpanded ? 'text-base' : 'text-sm'
                         }`}>Status</div>
@@ -753,10 +756,10 @@ export default function Home() {
                         }`}>{selectedDrug.status}</div>
                       </div>
                     </div>
-                    <div className={`mt-4 pt-4 border-t border-gray-300/50 transition-all duration-500 ${
+                    <div className={`mt-4 pt-4 border-t border-blue-200/50 text-center transition-all duration-500 ${
                       isExpanded ? 'mt-6 pt-6' : ''
                     }`}>
-                      <div className={`text-gray-600 font-medium transition-all duration-500 ${
+                      <div className={`text-slate-600 font-medium transition-all duration-500 ${
                         isExpanded ? 'text-base' : 'text-sm'
                       }`}>{selectedDrug.tierDescription}</div>
                     </div>
@@ -768,20 +771,34 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in slide-in-from-bottom duration-700">
                     <div className="transform hover:scale-105 transition-transform duration-300">
                       <div className="flex items-center gap-3 mb-4">
-                        <AlertCircle className="w-7 h-7 text-orange-500" />
-                        <h3 className="text-2xl font-bold text-gray-900">Side Effects</h3>
+                        <div className="p-3 rounded-xl bg-amber-100 border border-amber-200">
+                          <AlertCircle className="w-7 h-7 text-amber-600" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900">Common Side Effects</h3>
                       </div>
-                      <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-l-4 border-orange-400 shadow-lg">
+                      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="w-2 h-2 bg-amber-400 rounded-full mt-3 flex-shrink-0"></div>
+                          <div>
                         <p className="text-gray-700 text-lg leading-relaxed">{selectedDrug.sideEffects}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="transform hover:scale-105 transition-transform duration-300">
                       <div className="flex items-center gap-3 mb-4">
-                        <Shield className="w-7 h-7 text-red-500" />
+                        <div className="p-3 rounded-xl bg-red-100 border border-red-200">
+                          <Shield className="w-7 h-7 text-red-600" />
+                        </div>
                         <h3 className="text-2xl font-bold text-gray-900">Contraindications</h3>
                       </div>
-                      <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-6 border-l-4 border-red-400 shadow-lg">
+                      <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-6 border border-red-200 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="w-2 h-2 bg-red-400 rounded-full mt-3 flex-shrink-0"></div>
+                          <div>
                         <p className="text-gray-700 text-lg leading-relaxed">{selectedDrug.contraindications}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -800,12 +817,12 @@ export default function Home() {
                   </div>
                   <div className="flex gap-3">
                     <button className={`font-medium text-gray-700 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-50 hover:shadow-md transform hover:scale-105 transition-all duration-300 ${
-                      isExpanded ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'
+                      isExpanded ? 'px-8 py-4 text-base' : 'px-4 py-2 text-sm'
                     }`}>
                       Add to Favorites
                     </button>
-                    <button className={`font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg hover:from-blue-700 hover:to-purple-700 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${
-                      isExpanded ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'
+                    <button className={`font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${
+                      isExpanded ? 'px-8 py-4 text-base' : 'px-4 py-2 text-sm'
                     }`}>
                       Request Prior Auth
                     </button>
