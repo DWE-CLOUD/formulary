@@ -135,7 +135,6 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
     medicaid: 92,
     va: 100
   };
-  // The extra closing brace was here, and has been removed.
 
   return (
     <div className="min-h-screen bg-gray-50">
