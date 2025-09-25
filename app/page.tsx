@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Pill, Users, Star, Clock, Shield, AlertCircle, User, Building, X, ChevronRight, Activity, Calendar, DollarSign } from 'lucide-react';
+import { Search, Pill, Users, Star, Clock, Shield, AlertCircle, User, Building, X, ChevronRight, Activity, Calendar, DollarSign, TrendingUp } from 'lucide-react';
 
 export default function Home() {
   const [isSearchMode, setIsSearchMode] = useState(true);
@@ -638,8 +638,8 @@ export default function Home() {
                   /* Lightbox Content */
                   <>
                     {/* Status and Tier */}
-                    <div className="flex items-center gap-6 mb-6">
-                      <span className={`px-6 py-3 rounded-xl font-semibold shadow-lg text-sm border ${
+                    <div className="flex items-center gap-4 mb-6 animate-in slide-in-from-left duration-500">
+                      <span className={`px-4 py-2 rounded-lg font-semibold text-sm border shadow-md hover:shadow-lg transition-all duration-300 ${
                         selectedDrug.status === 'Preferred' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' :
                         selectedDrug.status === 'Brand' ? 'bg-blue-50 text-blue-800 border-blue-200' :
                         selectedDrug.status === 'Generic' ? 'bg-slate-50 text-slate-800 border-slate-200' :
@@ -647,376 +647,466 @@ export default function Home() {
                       }`}>
                         {selectedDrug.status}
                       </span>
-                      <div className="flex items-center gap-3 bg-gradient-to-r from-emerald-50 to-green-50 px-4 py-2 rounded-xl shadow-lg border border-emerald-200">
-                        <DollarSign className="w-4 h-4 text-emerald-700" />
+                      <div className="flex items-center gap-3 bg-gradient-to-r from-emerald-50 to-green-50 px-4 py-2 rounded-lg shadow-md border border-emerald-200 hover:shadow-lg transition-all duration-300">
+                        <DollarSign className="w-4 h-4 text-emerald-700 animate-pulse" />
                         <span className="font-bold text-green-800 text-lg">{selectedDrug.copay}</span>
                         <span className="text-green-600 font-medium text-sm">• {selectedDrug.tier}</span>
                       </div>
                     </div>
 
-                    {/* Basic Info for lightbox */}
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
-                        <p className="text-gray-700 text-sm">{selectedDrug.description}</p>
+                    {/* Description */}
+                    <div className="mb-6 animate-in slide-in-from-bottom duration-600 delay-100">
+                      <h3 className="font-bold text-gray-900 mb-3 text-lg">Description</h3>
+                      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-4 border border-blue-200 shadow-md hover:shadow-lg transition-all duration-300">
+                        <p className="text-slate-700 leading-relaxed">{selectedDrug.description}</p>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-2">Primary Uses</h3>
-                        <p className="text-gray-700 text-sm">{selectedDrug.useCase}</p>
+                    </div>
+
+                    {/* Use Case */}
+                    <div className="mb-6 animate-in slide-in-from-bottom duration-600 delay-200">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Activity className="w-6 h-6 text-blue-500" />
+                        <h3 className="font-bold text-gray-900 text-lg">Use Cases</h3>
+                      </div>
+                      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 border border-emerald-200 shadow-md hover:shadow-lg transition-all duration-300">
+                        <p className="text-slate-700">{selectedDrug.useCase}</p>
+                      </div>
+                    </div>
+
+                    {/* Formulary Info */}
+                    <div className="mb-6 animate-in slide-in-from-bottom duration-600 delay-300">
+                      <h3 className="font-bold text-gray-900 mb-4 text-lg">Current Formulary Status</h3>
+                      <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg shadow-md border border-blue-200 p-4 hover:shadow-lg transition-all duration-300">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div className="text-center">
+                            <div className="text-gray-500 font-medium mb-1 text-sm">Tier Level</div>
+                            <div className="text-2xl font-bold text-blue-600">{selectedDrug.tier}</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-gray-500 font-medium mb-1 text-sm">Patient Cost</div>
+                            <div className="text-2xl font-bold text-green-600">{selectedDrug.copay}</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-gray-500 font-medium mb-1 text-sm">Authorization</div>
+                            <div className="text-lg font-semibold text-gray-700">
+                              {selectedDrug.status === 'Prior Auth' ? 'Required' : 'Not Required'}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </>
                 ) : (
                   /* Full Page Professional Content */
-                  <div className="min-h-screen bg-gray-50">
-                    {/* Top Section - Drug Overview */}
-                    <div className="grid grid-cols-12 gap-8 mb-8">
-                      {/* Left Column - Main Drug Info */}
-                      <div className="col-span-8">
-                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-                          <div className="flex items-start gap-6 mb-8">
-                            <div className="p-4 bg-blue-600 rounded-lg">
-                              <Pill className="w-10 h-10 text-white" />
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center gap-4 mb-3">
-                                <h1 className="text-3xl font-bold text-gray-900">{selectedDrug.name}</h1>
-                                <span className={`px-3 py-1 rounded-md text-sm font-medium ${
-                                  selectedDrug.status === 'Preferred' ? 'bg-green-100 text-green-800' :
-                                  selectedDrug.status === 'Brand' ? 'bg-blue-100 text-blue-800' :
-                                  selectedDrug.status === 'Generic' ? 'bg-gray-100 text-gray-800' :
-                                  'bg-blue-100 text-blue-800'
-                                }`}>
-                                  {selectedDrug.status}
-                                </span>
-                              </div>
-                              <h2 className="text-xl text-gray-700 mb-2">{selectedDrug.genericName}</h2>
-                              <div className="flex items-center gap-6 text-sm text-gray-600">
-                                <span>Strength: {selectedDrug.strength}</span>
-                                <span>•</span>
-                                <span>Manufacturer: {selectedDrug.manufacturer}</span>
-                                <span>•</span>
-                                <span>NDC: 12345-678-90</span>
-                              </div>
-                            </div>
+                  <div className="animate-in fade-in duration-800">
+                    {/* Drug Overview Cards */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 animate-in slide-in-from-left duration-700">
+                      {/* Main Drug Info */}
+                      <div className="lg:col-span-2 bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                        <div className="flex items-start gap-6 mb-8">
+                          <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl border-2 border-blue-200 shadow-lg">
+                            <Pill className="w-12 h-12 text-blue-600 animate-pulse" />
                           </div>
-
-                          {/* Clinical Summary */}
-                          <div className="border-t border-gray-200 pt-6">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Clinical Summary</h3>
-                            <div className="prose max-w-none">
-                              <p className="text-gray-700 leading-relaxed mb-4">{selectedDrug.description}</p>
-                              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                <h4 className="font-semibold text-gray-900 mb-2">Primary Indications</h4>
-                                <p className="text-gray-800">{selectedDrug.useCase}</p>
-                              </div>
+                          <div className="flex-1">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-3">{selectedDrug.name}</h2>
+                            <p className="text-xl text-blue-700 mb-2 font-semibold">{selectedDrug.genericName}</p>
+                            <div className="flex flex-wrap gap-4 text-gray-600 mb-4">
+                              <span className="bg-gray-100 px-3 py-1 rounded-full text-sm font-medium">{selectedDrug.strength}</span>
+                              <span className="bg-gray-100 px-3 py-1 rounded-full text-sm font-medium">{selectedDrug.manufacturer}</span>
+                              <span className="bg-blue-100 px-3 py-1 rounded-full text-sm font-medium text-blue-800">NDC: 00093-1084-01</span>
                             </div>
-                          </div>
-                        </div>
-
-                        {/* Dosing Information */}
-                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mt-6">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-6">Dosing & Administration</h3>
-                          <div className="grid grid-cols-4 gap-4">
-                            <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
-                              <div className="text-2xl font-bold text-blue-900 mb-1">500mg</div>
-                              <div className="text-sm text-gray-600">Initial Dose</div>
-                            </div>
-                            <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
-                              <div className="text-2xl font-bold text-green-900 mb-1">2×/day</div>
-                              <div className="text-sm text-gray-600">Frequency</div>
-                            </div>
-                            <div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
-                              <div className="text-2xl font-bold text-purple-900 mb-1">2550mg</div>
-                              <div className="text-sm text-gray-600">Max Daily</div>
-                            </div>
-                            <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
-                              <div className="text-2xl font-bold text-orange-900 mb-1">30min</div>
-                              <div className="text-sm text-gray-600">Before Meals</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right Column - Coverage & Cost Info */}
-                      <div className="col-span-4">
-                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-4">Coverage Information</h3>
-                          <div className="space-y-4">
-                            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                              <span className="text-gray-700">Formulary Tier</span>
-                              <span className="font-semibold text-gray-900">{selectedDrug.tier}</span>
-                            </div>
-                            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                              <span className="text-gray-700">Patient Copay</span>
-                              <span className="font-bold text-green-700 text-lg">{selectedDrug.copay}</span>
-                            </div>
-                            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                              <span className="text-gray-700">Insurance Coverage</span>
-                              <span className="font-semibold text-blue-700">85%</span>
-                            </div>
-                            <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
-                              <span className="text-gray-700">Prior Authorization</span>
-                              <span className="text-purple-700 font-medium">
-                                {selectedDrug.status === 'Prior Auth' ? 'Required' : 'Not Required'}
+                            <div className="flex items-center gap-4 mt-4">
+                              <span className={`px-4 py-2 rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 ${
+                                selectedDrug.status === 'Preferred' ? 'bg-green-100 text-green-800' :
+                                selectedDrug.status === 'Brand' ? 'bg-blue-100 text-blue-800' :
+                                selectedDrug.status === 'Generic' ? 'bg-gray-100 text-gray-800' :
+                                'bg-blue-100 text-blue-800'
+                              }`}>
+                                {selectedDrug.status}
                               </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Coverage Chart */}
-                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-4">Plan Coverage</h3>
-                          <div className="space-y-3">
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Medicare Part D</span>
-                                <span className="font-medium">95%</span>
-                              </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2">
-                                <div className="bg-green-500 h-2 rounded-full" style={{width: '95%'}}></div>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Commercial Plans</span>
-                                <span className="font-medium">88%</span>
-                              </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2">
-                                <div className="bg-blue-500 h-2 rounded-full" style={{width: '88%'}}></div>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Medicaid</span>
-                                <span className="font-medium">92%</span>
-                              </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2">
-                                <div className="bg-purple-500 h-2 rounded-full" style={{width: '92%'}}></div>
+                              <div className="flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 rounded-lg border border-green-200 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                <DollarSign className="w-4 h-4 text-green-600" />
+                                <span className="font-bold text-green-800 text-lg">{selectedDrug.copay}</span>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Clinical Effectiveness Charts */}
-                    <div className="grid grid-cols-2 gap-8 mb-8">
-                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-6">Clinical Outcomes</h3>
+                        
                         <div className="space-y-6">
                           <div>
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-sm font-medium text-gray-700">HbA1c Reduction</span>
-                              <span className="text-lg font-bold text-blue-600">-1.5%</span>
-                            </div>
-                            <div className="relative">
-                              <div className="w-full bg-gray-200 rounded-full h-4">
-                                <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full flex items-center justify-end pr-2" style={{width: '75%'}}>
-                                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                                </div>
-                              </div>
-                              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>0%</span>
-                                <span>-2.0%</span>
-                              </div>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Clinical Description</h3>
+                            <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                              <p className="text-gray-700 leading-relaxed text-lg">{selectedDrug.description}</p>
                             </div>
                           </div>
+                          
                           <div>
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-sm font-medium text-gray-700">Weight Change</span>
-                              <span className="text-lg font-bold text-green-600">-2.3kg</span>
-                            </div>
-                            <div className="relative">
-                              <div className="w-full bg-gray-200 rounded-full h-4">
-                                <div className="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full flex items-center justify-end pr-2" style={{width: '68%'}}>
-                                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                                </div>
-                              </div>
-                              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>0kg</span>
-                                <span>-5kg</span>
-                              </div>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Primary Indications</h3>
+                            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-all duration-300">
+                              <p className="text-gray-800 text-lg">{selectedDrug.useCase}</p>
                             </div>
                           </div>
+
+                          {/* Mechanism of Action */}
                           <div>
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-sm font-medium text-gray-700">CV Risk Reduction</span>
-                              <span className="text-lg font-bold text-purple-600">-12%</span>
-                            </div>
-                            <div className="relative">
-                              <div className="w-full bg-gray-200 rounded-full h-4">
-                                <div className="bg-gradient-to-r from-purple-500 to-purple-600 h-4 rounded-full flex items-center justify-end pr-2" style={{width: '60%'}}>
-                                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                                </div>
-                              </div>
-                              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>0%</span>
-                                <span>-20%</span>
-                              </div>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Mechanism of Action</h3>
+                            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200 shadow-sm hover:shadow-md transition-all duration-300">
+                              <p className="text-gray-800 text-lg">Decreases hepatic glucose production and intestinal absorption of glucose. Improves insulin sensitivity by increasing peripheral glucose uptake and utilization.</p>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-6">Adverse Events Profile</h3>
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border-l-4 border-red-400">
-                            <div>
-                              <div className="font-medium text-gray-900">GI Disturbances</div>
-                              <div className="text-sm text-gray-600">Nausea, diarrhea, stomach upset</div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-xl font-bold text-red-700">25%</div>
-                              <div className="text-xs text-red-600">Incidence</div>
+                      {/* Formulary Status Card */}
+                      <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden">
+                        {/* Background decoration */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12"></div>
+                        
+                        <h3 className="text-2xl font-bold mb-6">Formulary Details</h3>
+                        <div className="space-y-6">
+                          <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm hover:bg-white/30 transition-all duration-300 border border-white/20">
+                            <div className="text-blue-100 text-sm mb-1">Coverage Tier</div>
+                            <div className="text-3xl font-bold">{selectedDrug.tier}</div>
+                            <div className="text-blue-200 text-sm mt-1">{selectedDrug.tierDescription}</div>
+                          </div>
+                          
+                          <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm hover:bg-white/30 transition-all duration-300 border border-white/20">
+                            <div className="text-blue-100 text-sm mb-1">Patient Copay</div>
+                            <div className="text-4xl font-bold text-green-300 animate-pulse">{selectedDrug.copay}</div>
+                            <div className="text-blue-200 text-sm mt-1">Per 30-day supply</div>
+                          </div>
+
+                          <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm hover:bg-white/30 transition-all duration-300 border border-white/20">
+                            <div className="text-blue-100 text-sm mb-1">Prior Authorization</div>
+                            <div className="text-xl font-semibold">
+                              {selectedDrug.status === 'Prior Auth' ? 'Required' : 'Not Required'}
                             </div>
                           </div>
-                          <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border-l-4 border-amber-400">
-                            <div>
-                              <div className="font-medium text-gray-900">Metallic Taste</div>
-                              <div className="text-sm text-gray-600">Usually transient</div>
+
+                          <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm hover:bg-white/30 transition-all duration-300 border border-white/20">
+                            <div className="text-blue-100 text-sm mb-1">Formulary Position</div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                              <span className="text-lg font-semibold">Covered</span>
                             </div>
-                            <div className="text-right">
-                              <div className="text-xl font-bold text-amber-700">15%</div>
-                              <div className="text-xs text-amber-600">Incidence</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
-                            <div>
-                              <div className="font-medium text-gray-900">B12 Deficiency</div>
-                              <div className="text-sm text-gray-600">Long-term use</div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-xl font-bold text-yellow-700">7%</div>
-                              <div className="text-xs text-yellow-600">Incidence</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-                            <div>
-                              <div className="font-medium text-gray-900">Lactic Acidosis</div>
-                              <div className="text-sm text-gray-600">Rare but serious</div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-xl font-bold text-blue-700">&lt;0.1%</div>
-                              <div className="text-xs text-blue-600">Incidence</div>
-                            </div>
+                            <div className="text-blue-200 text-sm mt-1">Effective Jan 2024</div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Safety & Monitoring */}
-                    <div className="grid grid-cols-3 gap-6 mb-8">
-                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="p-2 bg-red-100 rounded-lg">
-                            <AlertCircle className="w-6 h-6 text-red-600" />
+                    {/* Charts and Analytics Section */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 animate-in slide-in-from-right duration-700 delay-200">
+                      {/* Effectiveness Chart */}
+                      <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="p-2 bg-green-100 rounded-lg">
+                            <TrendingUp className="w-6 h-6 text-green-600" />
                           </div>
-                          <h3 className="text-lg font-semibold text-gray-900">Contraindications</h3>
+                          <h3 className="text-2xl font-semibold text-gray-900">Clinical Outcomes</h3>
                         </div>
-                        <ul className="space-y-2 text-sm text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Severe renal impairment (eGFR &lt; 30 mL/min/1.73m²)</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Acute or chronic metabolic acidosis</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Diabetic ketoacidosis</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Hypersensitivity to metformin</span>
-                          </li>
-                        </ul>
+                        <div className="space-y-4">
+                          <div>
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-gray-700 font-medium">HbA1c Reduction</span>
+                              <span className="text-blue-600 font-bold text-lg">-1.5%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                              <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full professional-transition hover:from-blue-600 hover:to-blue-700" style={{width: '85%'}}></div>
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">Baseline to 6 months (n=1,247 patients)</div>
+                          </div>
+                          <div>
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-gray-700 font-medium">Weight Change</span>
+                              <span className="text-green-600 font-bold text-lg">-2.3kg</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                              <div className="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full professional-transition hover:from-green-600 hover:to-green-700" style={{width: '78%'}}></div>
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">Average weight loss at 12 months</div>
+                          </div>
+                          <div>
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-gray-700 font-medium">CV Risk Reduction</span>
+                              <span className="text-purple-600 font-bold text-lg">-14%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                              <div className="bg-gradient-to-r from-purple-500 to-purple-600 h-4 rounded-full professional-transition hover:from-purple-600 hover:to-purple-700" style={{width: '70%'}}></div>
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">Major adverse cardiovascular events (MACE)</div>
+                          </div>
+                          <div>
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-gray-700 font-medium">Renal Protection</span>
+                              <span className="text-teal-600 font-bold text-lg">-18%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                              <div className="bg-gradient-to-r from-teal-500 to-teal-600 h-4 rounded-full professional-transition hover:from-teal-600 hover:to-teal-700" style={{width: '72%'}}></div>
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">Diabetic nephropathy progression</div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="p-2 bg-blue-100 rounded-lg">
-                            <Activity className="w-6 h-6 text-blue-600" />
-                          </div>
-                          <h3 className="text-lg font-semibold text-gray-900">Monitoring</h3>
-                        </div>
-                        <ul className="space-y-2 text-sm text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Renal function (creatinine/eGFR) every 6-12 months</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Vitamin B12 levels annually</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>HbA1c every 3-6 months</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Liver function if clinically indicated</span>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <div className="flex items-center gap-3 mb-4">
+                      {/* Side Effects Frequency */}
+                      <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                        <div className="flex items-center gap-3 mb-6">
                           <div className="p-2 bg-amber-100 rounded-lg">
+                            <AlertCircle className="w-6 h-6 text-amber-600" />
+                          </div>
+                          <h3 className="text-2xl font-semibold text-gray-900">Safety Profile</h3>
+                        </div>
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-200 hover:bg-red-100 transition-all duration-300">
+                            <span className="text-gray-800 font-medium">GI Disturbances</span>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 bg-red-200 rounded-full h-3 overflow-hidden">
+                                <div className="bg-gradient-to-r from-red-400 to-red-500 h-3 rounded-full professional-transition" style={{width: '45%'}}></div>
+                              </div>
+                              <span className="text-red-700 font-bold text-sm">25%</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between p-4 bg-amber-50 rounded-xl border border-amber-200 hover:bg-amber-100 transition-all duration-300">
+                            <span className="text-gray-800 font-medium">Diarrhea</span>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 bg-amber-200 rounded-full h-3 overflow-hidden">
+                                <div className="bg-gradient-to-r from-amber-400 to-amber-500 h-3 rounded-full professional-transition" style={{width: '32%'}}></div>
+                              </div>
+                              <span className="text-amber-700 font-bold text-sm">19%</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between p-4 bg-orange-50 rounded-xl border border-orange-200 hover:bg-orange-100 transition-all duration-300">
+                            <span className="text-gray-800 font-medium">Metallic Taste</span>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 bg-orange-200 rounded-full h-3 overflow-hidden">
+                                <div className="bg-gradient-to-r from-orange-400 to-orange-500 h-3 rounded-full professional-transition" style={{width: '25%'}}></div>
+                              </div>
+                              <span className="text-orange-700 font-bold text-sm">12%</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-xl border border-yellow-200 hover:bg-yellow-100 transition-all duration-300">
+                            <span className="text-gray-800 font-medium">B12 Deficiency</span>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 bg-yellow-200 rounded-full h-3 overflow-hidden">
+                                <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 h-3 rounded-full professional-transition" style={{width: '15%'}}></div>
+                              </div>
+                              <span className="text-yellow-700 font-bold text-sm">7%</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between p-4 bg-green-50 rounded-xl border border-green-200 hover:bg-green-100 transition-all duration-300">
+                            <span className="text-gray-800 font-medium">Hypoglycemia</span>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 bg-green-200 rounded-full h-3 overflow-hidden">
+                                <div className="bg-gradient-to-r from-green-400 to-green-500 h-3 rounded-full professional-transition" style={{width: '8%'}}></div>
+                              </div>
+                              <span className="text-green-700 font-bold text-sm">2%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
+                          * Incidence rates from pooled clinical trials (n=3,892 patients)
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Dosing Guidelines */}
+                    <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 mb-12 hover:shadow-2xl transition-all duration-500 animate-in slide-in-from-left duration-700 delay-300">
+                      <div className="flex items-center gap-3 mb-8">
+                        <div className="p-2 bg-purple-100 rounded-lg">
+                          <Calendar className="w-6 h-6 text-purple-600" />
+                        </div>
+                        <h3 className="text-2xl font-semibold text-gray-900">Dosing & Administration</h3>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border border-blue-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <Calendar className="w-8 h-8 text-blue-600 mx-auto mb-3" />
+                          <div className="text-xl font-bold text-blue-800 mb-2">Week 1-2</div>
+                          <div className="text-2xl font-bold text-gray-900 mb-1">500mg</div>
+                          <div className="text-sm text-gray-600 mt-1">Once daily with dinner</div>
+                          <div className="text-xs text-blue-600 mt-2 bg-blue-100 px-2 py-1 rounded-full">Initiation</div>
+                        </div>
+                        <div className="text-center p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl border border-indigo-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <Calendar className="w-8 h-8 text-indigo-600 mx-auto mb-3" />
+                          <div className="text-xl font-bold text-indigo-800 mb-2">Week 3-4</div>
+                          <div className="text-2xl font-bold text-gray-900 mb-1">1000mg</div>
+                          <div className="text-sm text-gray-600 mt-1">Twice daily</div>
+                          <div className="text-xs text-indigo-600 mt-2 bg-indigo-100 px-2 py-1 rounded-full">Titration</div>
+                        </div>
+                        <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl border border-green-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <Calendar className="w-8 h-8 text-green-600 mx-auto mb-3" />
+                          <div className="text-xl font-bold text-green-800 mb-2">Week 5+</div>
+                          <div className="text-2xl font-bold text-gray-900 mb-1">1700mg</div>
+                          <div className="text-sm text-gray-600 mt-1">Divided doses</div>
+                          <div className="text-xs text-green-600 mt-2 bg-green-100 px-2 py-1 rounded-full">Maintenance</div>
+                        </div>
+                        <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl border border-red-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <AlertCircle className="w-8 h-8 text-red-600 mx-auto mb-3" />
+                          <div className="text-xl font-bold text-red-800 mb-2">Maximum</div>
+                          <div className="text-2xl font-bold text-gray-900 mb-1">2550mg</div>
+                          <div className="text-sm text-gray-600 mt-1">Daily limit</div>
+                          <div className="text-xs text-red-600 mt-2 bg-red-100 px-2 py-1 rounded-full">Do not exceed</div>
+                        </div>
+                      </div>
+                      <div className="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                        <div className="flex items-start gap-3">
+                          <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+                          <div>
+                            <h4 className="font-semibold text-amber-900 mb-2">Clinical Considerations</h4>
+                            <ul className="text-sm text-amber-800 space-y-1">
+                              <li>• Take with food to minimize GI effects</li>
+                              <li>• Monitor eGFR before initiation and every 6 months</li>
+                              <li>• Dose reduction required if eGFR 30-45 mL/min/1.73m²</li>
+                              <li>• Discontinue if eGFR drops below 30 mL/min/1.73m²</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Safety Information */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 animate-in slide-in-from-bottom duration-700 delay-400">
+                      <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="p-3 bg-red-100 rounded-xl">
+                            <AlertCircle className="w-8 h-8 text-red-600" />
+                          </div>
+                          <h3 className="text-2xl font-semibold text-gray-900">Clinical Warnings</h3>
+                        </div>
+                        <div className="space-y-4">
+                          <div className="p-4 bg-red-50 rounded-xl border border-red-200 hover:bg-red-100 transition-all duration-300">
+                            <h4 className="font-semibold text-red-900 mb-2">Absolute Contraindications</h4>
+                            <ul className="text-gray-700 space-y-1 text-sm">
+                              <li>• Severe renal impairment (eGFR &lt; 30 mL/min/1.73m²)</li>
+                              <li>• Metabolic acidosis</li>
+                              <li>• Diabetic ketoacidosis</li>
+                              <li>• Known hypersensitivity to metformin</li>
+                            </ul>
+                          </div>
+                          <div className="p-4 bg-amber-50 rounded-xl border border-amber-200 hover:bg-amber-100 transition-all duration-300">
+                            <h4 className="font-semibold text-amber-900 mb-2">Black Box Warning</h4>
+                            <ul className="text-gray-700 space-y-1 text-sm">
+                              <li>• Risk of lactic acidosis - rare but serious</li>
+                              <li>• Discontinue before iodinated contrast procedures</li>
+                              <li>• Avoid in hemodynamically unstable patients</li>
+                            </ul>
+                          </div>
+                          <div className="p-4 bg-blue-50 rounded-xl border border-blue-200 hover:bg-blue-100 transition-all duration-300">
+                            <h4 className="font-semibold text-blue-900 mb-2">Monitoring Parameters</h4>
+                            <ul className="text-gray-700 space-y-1 text-sm">
+                              <li>• eGFR at baseline, 6 months, then annually</li>
+                              <li>• Vitamin B12 levels annually (long-term use)</li>
+                              <li>• HbA1c every 3-6 months</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="p-3 bg-orange-100 rounded-xl">
+                            <Shield className="w-8 h-8 text-orange-600" />
+                          </div>
+                          <h3 className="text-2xl font-semibold text-gray-900">Drug Interactions</h3>
+                        </div>
+                        <div className="space-y-4">
+                          <div className="p-4 bg-red-50 rounded-xl border border-red-200 hover:bg-red-100 transition-all duration-300">
+                            <h4 className="font-semibold text-red-900 mb-2">Major Interactions</h4>
+                            <ul className="text-gray-700 space-y-1 text-sm">
+                              <li>• Iodinated contrast (discontinue 48h before/after)</li>
+                              <li>• Alcohol (increased lactic acidosis risk)</li>
+                              <li>• Topiramate (increased acidosis risk)</li>
+                            </ul>
+                          </div>
+                          <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-200 hover:bg-yellow-100 transition-all duration-300">
+                            <h4 className="font-semibold text-yellow-900 mb-2">Moderate Interactions</h4>
+                            <ul className="text-gray-700 space-y-1 text-sm">
+                              <li>• Furosemide (altered metformin levels)</li>
+                              <li>• Nifedipine (increased absorption)</li>
+                              <li>• Cationic drugs (cimetidine, amiloride)</li>
+                            </ul>
+                          </div>
+                          <div className="p-4 bg-green-50 rounded-xl border border-green-200 hover:bg-green-100 transition-all duration-300">
+                            <h4 className="font-semibold text-green-900 mb-2">Beneficial Combinations</h4>
+                            <ul className="text-gray-700 space-y-1 text-sm">
+                              <li>• ACE inhibitors (cardiovascular protection)</li>
+                              <li>• Statins (lipid management)</li>
+                              <li>• Other antidiabetic agents (synergistic effects)</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Patient Counseling Points */}
+                    <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-8 shadow-xl border border-blue-200 hover:shadow-2xl transition-all duration-500 animate-in slide-in-from-bottom duration-700 delay-500">
+                      <h3 className="text-2xl font-semibold text-gray-900 mb-8 text-center">Patient Counseling Key Points</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Clock className="w-6 h-6 text-blue-600" />
+                          </div>
+                          <h4 className="font-semibold text-gray-900 mb-2">Timing</h4>
+                          <p className="text-gray-600 text-sm">Take with food to minimize gastrointestinal side effects</p>
+                        </div>
+                        <div className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Activity className="w-6 h-6 text-green-600" />
+                          </div>
+                          <h4 className="font-semibold text-gray-900 mb-2">Monitoring</h4>
+                          <p className="text-gray-600 text-sm">Regular blood tests for kidney function and B12 levels</p>
+                        </div>
+                        <div className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                          <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <Shield className="w-6 h-6 text-amber-600" />
                           </div>
-                          <h3 className="text-lg font-semibold text-gray-900">Drug Interactions</h3>
+                          <h4 className="font-semibold text-gray-900 mb-2">Precautions</h4>
+                          <p className="text-gray-600 text-sm">Notify healthcare providers before imaging with contrast</p>
                         </div>
-                        <ul className="space-y-2 text-sm text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span><strong>Contrast agents:</strong> Hold 48h before/after</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span><strong>Alcohol:</strong> Increases lactic acidosis risk</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span><strong>Corticosteroids:</strong> Monitor glucose closely</span>
-                          </li>
-                        </ul>
                       </div>
-                    </div>
-
-                    {/* Patient Information */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-8">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">Patient Counseling Points</h3>
-                      <div className="grid grid-cols-4 gap-6">
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                            <Clock className="w-8 h-8 text-blue-600" />
-                          </div>
-                          <h4 className="font-medium text-gray-900 mb-2">Administration</h4>
-                          <p className="text-sm text-gray-600">Take with meals to reduce GI side effects. Swallow whole, do not crush extended-release tablets.</p>
+                      
+                      {/* Additional Patient Education */}
+                      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5 text-blue-600" />
+                            Expected Benefits
+                          </h4>
+                          <ul className="text-sm text-gray-700 space-y-2">
+                            <li className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              Lower blood sugar levels within 2-3 weeks
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              Reduced risk of diabetes complications
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              Possible modest weight loss
+                            </li>
+                          </ul>
                         </div>
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                            <AlertCircle className="w-8 h-8 text-amber-600" />
-                          </div>
-                          <h4 className="font-medium text-gray-900 mb-2">Monitoring</h4>
-                          <p className="text-sm text-gray-600">Regular blood tests for kidney function and vitamin B12 levels. Report persistent nausea or unusual fatigue.</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                            <Shield className="w-8 h-8 text-red-600" />
-                          </div>
-                          <h4 className="font-medium text-gray-900 mb-2">Precautions</h4>
-                          <p className="text-sm text-gray-600">Avoid excessive alcohol. Notify healthcare providers before procedures requiring contrast agents.</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                            <Activity className="w-8 h-8 text-green-600" />
-                          </div>
-                          <h4 className="font-medium text-gray-900 mb-2">Lifestyle</h4>
-                          <p className="text-sm text-gray-600">Maintain consistent meal timing and continue diet and exercise as recommended by healthcare provider.</p>
+                        <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            <AlertCircle className="w-5 h-5 text-amber-600" />
+                            When to Contact Provider
+                          </h4>
+                          <ul className="text-sm text-gray-700 space-y-2">
+                            <li className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                              Persistent nausea, vomiting, or stomach pain
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                              Unusual tiredness or weakness
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                              Muscle pain or difficulty breathing
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
