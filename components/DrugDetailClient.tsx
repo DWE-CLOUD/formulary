@@ -135,7 +135,7 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
     medicaid: 92,
     va: 100
   };
-  };
+  // The extra closing brace was here, and has been removed.
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -314,7 +314,7 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
                     <div className="text-xl font-bold text-gray-900">{percentage}%</div>
                     <div className="text-sm text-gray-600 capitalize">{plan}</div>
                     <div className="mt-2 bg-gray-200 rounded-full h-1">
-                      <div 
+                      <div
                         className="bg-blue-600 h-1 rounded-full transition-all duration-500"
                         style={{ width: `${percentage}%` }}
                       ></div>
@@ -380,7 +380,7 @@ export default function DrugDetailClient({ drug }: DrugDetailClientProps) {
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
                             <div className="flex-1 bg-gray-200 rounded-full h-2">
-                              <div 
+                              <div
                                 className={`h-2 rounded-full ${
                                   option.coverage >= 90 ? 'bg-green-600' :
                                   option.coverage >= 75 ? 'bg-blue-600' :
