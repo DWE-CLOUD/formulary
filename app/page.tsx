@@ -124,17 +124,17 @@ export default function Page() {
     setSelectedDrug(drug);
     setIsModalOpen(true);
     setIsExpanded(false);
-  }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedDrug(null);
     setIsExpanded(false);
-  }
+  };
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
-  }
+  };
 
   return (
     <div 
@@ -485,10 +485,10 @@ export default function Page() {
                         <div>
                           <div className="flex justify-between items-center mb-2">
                             <span className="text-gray-700 font-medium">CV Risk Reduction</span>
-                            <span className="text-purple-600 font-bold">12%</span>
+                            <span className="text-blue-600 font-bold">12%</span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-3">
-                            <div className="bg-gradient-to-r from-purple-500 to-purple-600 h-3 rounded-full" style={{width: '65%'}}></div>
+                            <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full" style={{width: '65%'}}></div>
                           </div>
                         </div>
                       </div>
@@ -573,7 +573,7 @@ export default function Page() {
                         <div className="p-4 bg-red-50 rounded-xl border border-red-200">
                           <h4 className="font-semibold text-red-900 mb-2">Absolute Contraindications</h4>
                           <ul className="text-gray-700 space-y-1 text-sm">
-                            <li>• Severe renal impairment (eGFR < 30)</li>
+                            <li>• Severe renal impairment (eGFR &lt; 30)</li>
                             <li>• Metabolic acidosis</li>
                             <li>• Diabetic ketoacidosis</li>
                           </ul>
