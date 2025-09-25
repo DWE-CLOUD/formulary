@@ -650,6 +650,10 @@ export default function Home() {
                     </div>
                     <div className="mt-3 pt-3 border-t border-gray-200">
                       <div className="text-sm text-gray-600">{selectedDrug.tierDescription}</div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Side Effects & Contraindications - Only show in expanded mode */}
                 {isExpanded && (
                   <>
@@ -659,7 +663,6 @@ export default function Home() {
                         <h3 className="text-lg font-semibold text-gray-900">Side Effects</h3>
                       </div>
                       <p className="text-gray-700">{selectedDrug.sideEffects}</p>
-                    </div>
                     </div>
                     <div className="mb-6">
                       <div className="flex items-center gap-2 mb-2">
@@ -671,7 +674,7 @@ export default function Home() {
                   </>
                 )}
               </div>
-                  </div>
+
               {/* Footer Actions */}
               <div className="border-t border-gray-200 p-6 bg-gray-50">
                 <div className="flex items-center justify-between">
@@ -692,7 +695,7 @@ export default function Home() {
           </div>
         </div>
       )}
-                </div>
+
       {/* Copyright Footer */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/80 text-sm">
         © 2025 copyright by Akshit.
