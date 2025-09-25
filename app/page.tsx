@@ -120,7 +120,7 @@ export default function Home() {
         setIsSearchMode(false);
       }, 1500);
     }
-  };
+  }
 
   return (
     <div 
