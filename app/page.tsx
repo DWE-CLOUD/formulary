@@ -1,14 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { Search, Pill, Users, Star, Clock, Shield, AlertCircle, User, Building } from 'lucide-react';
+import { Search, Pill, Users, Star, Clock, Shield, AlertCircle, User, Building, X, ChevronRight, Activity, Calendar, DollarSign } from 'lucide-react';
 
 export default function Home() {
   const [isSearchMode, setIsSearchMode] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState('Formulary');
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedDrug, setSelectedDrug] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const tabs = ['Formulary', 'People', 'Guidelines', 'Analytics'];
 
@@ -282,7 +284,11 @@ export default function Home() {
                         tier: 'Tier 1',
                         copay: '$10',
                         status: 'Preferred',
-                        tierDescription: 'Lowest cost with full coverage'
+                        tierDescription: 'Lowest cost with full coverage',
+                        description: 'Type 2 diabetes medication that helps control blood sugar levels by reducing glucose production in the liver.',
+                        useCase: 'First-line treatment for type 2 diabetes mellitus, PCOS treatment',
+                        sideEffects: 'Nausea, diarrhea, stomach upset, metallic taste',
+                        contraindications: 'Kidney disease, liver disease, heart failure'
                       },
                       {
                         id: 'lisinopril-ace',
@@ -294,7 +300,11 @@ export default function Home() {
                         tier: 'Tier 1',
                         copay: '$10',
                         status: 'Generic',
-                        tierDescription: 'Lowest cost with full coverage'
+                        tierDescription: 'Lowest cost with full coverage',
+                        description: 'ACE inhibitor used to treat high blood pressure and heart failure.',
+                        useCase: 'Hypertension, heart failure, diabetic nephropathy',
+                        sideEffects: 'Dry cough, dizziness, hyperkalemia, angioedema',
+                        contraindications: 'Pregnancy, bilateral renal artery stenosis'
                       },
                       {
                         id: 'atorvastatin-cal',
@@ -306,7 +316,11 @@ export default function Home() {
                         tier: 'Tier 2',
                         copay: '$25',
                         status: 'Brand',
-                        tierDescription: 'Moderate cost standard coverage'
+                        tierDescription: 'Moderate cost standard coverage',
+                        description: 'Statin medication used to lower cholesterol and reduce cardiovascular risk.',
+                        useCase: 'High cholesterol, cardiovascular disease prevention',
+                        sideEffects: 'Muscle pain, liver enzyme elevation, headache',
+                        contraindications: 'Active liver disease, pregnancy, breastfeeding'
                       },
                       {
                         id: 'omeprazole-ppi',
@@ -318,14 +332,21 @@ export default function Home() {
                         tier: 'Tier 1',
                         copay: '$10',
                         status: 'Preferred',
-                        tierDescription: 'Lowest cost with full coverage'
+                        tierDescription: 'Lowest cost with full coverage',
+                        description: 'Proton pump inhibitor that reduces stomach acid production.',
+                        useCase: 'GERD, peptic ulcers, Zollinger-Ellison syndrome',
+                        sideEffects: 'Headache, nausea, diarrhea, vitamin B12 deficiency',
+                        contraindications: 'Hypersensitivity to benzimidazoles'
                       },
                     ].map((drug, index) => {
                       return (
-                        <Link 
+                        <div 
                           key={index} 
-                          href={`/drug/${drug.id}`}
-                          className="bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer block"
+                          onClick={() => {
+                            setSelectedDrug(drug);
+                            setIsModalOpen(true);
+                          }}
+                          className="bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
                         >
                           {/* Header with status */}
                           <div className="flex items-start justify-between mb-4">
@@ -372,7 +393,7 @@ export default function Home() {
                           </div>
                           
                           {/* Quick Actions */}
-                        </Link>
+                        </div>
                       );
                     })}
                   </div>
@@ -503,6 +524,175 @@ export default function Home() {
       )}
 
 
+      {/* Drug Detail Modal */}
+      {isModalOpen && selectedDrug && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => {
+              setIsModalOpen(false);
+              setIsExpanded(false);
+            }}
+          />
+          
+          {/* Modal */}
+          <div className={`absolute transition-all duration-500 ease-out ${
+            isExpanded 
+              ? 'inset-0' 
+              : 'top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-auto max-h-[90vh]'
+          }`}>
+            <div className={`bg-white rounded-3xl shadow-2xl overflow-hidden h-full transition-all duration-500 ${
+              isExpanded ? 'rounded-none' : ''
+            }`}>
+              {/* Header */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-full bg-blue-100">
+                      <Pill className="w-8 h-8 text-blue-600" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900">{selectedDrug.name}</h2>
+                      <p className="text-gray-600">{selectedDrug.genericName}</p>
+                      <p className="text-sm text-gray-500">{selectedDrug.strength} • {selectedDrug.manufacturer}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      className="p-2 rounded-full hover:bg-white/50 transition-colors"
+                    >
+                      <ChevronRight className={`w-5 h-5 text-gray-600 transition-transform duration-300 ${
+                        isExpanded ? 'rotate-180' : ''
+                      }`} />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(false);
+                        setIsExpanded(false);
+                      }}
+                      className="p-2 rounded-full hover:bg-white/50 transition-colors"
+                    >
+                      <X className="w-5 h-5 text-gray-600" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className={`${isExpanded ? 'h-full overflow-y-auto' : 'max-h-96 overflow-y-auto'} p-6`}>
+                {/* Status and Tier */}
+                <div className="flex items-center gap-4 mb-6">
+                  <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                    selectedDrug.status === 'Preferred' ? 'bg-green-100 text-green-700' :
+                    selectedDrug.status === 'Brand' ? 'bg-purple-100 text-purple-700' :
+                    selectedDrug.status === 'Generic' ? 'bg-gray-100 text-gray-700' :
+                    'bg-blue-100 text-blue-700'
+                  }`}>
+                    {selectedDrug.status}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <DollarSign className="w-4 h-4 text-gray-500" />
+                    <span className="text-lg font-semibold text-gray-900">{selectedDrug.copay}</span>
+                    <span className="text-sm text-gray-500">{selectedDrug.tier}</span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
+                  <p className="text-gray-700 leading-relaxed">{selectedDrug.description}</p>
+                </div>
+
+                {/* Use Case */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Activity className="w-5 h-5 text-blue-500" />
+                    <h3 className="text-lg font-semibold text-gray-900">Use Cases</h3>
+                  </div>
+                  <p className="text-gray-700">{selectedDrug.useCase}</p>
+                </div>
+
+                {/* Chemical Structure */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Chemical Structure</h3>
+                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-gray-200">
+                    <div className="text-center mb-4">
+                      <div className="text-3xl text-gray-400 font-mono mb-2">
+                        {selectedDrug.id.includes('metformin') ? '⬢—NH₂—⬢' : 
+                         selectedDrug.id.includes('lisinopril') ? '⬢—O—⬢—NH' :
+                         selectedDrug.id.includes('atorvastatin') ? 'HO—⬢—COOH' : 
+                         '⬢—S—⬢—O'}
+                      </div>
+                      <p className="text-sm text-gray-600">{selectedDrug.chemicalName}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Formulary Info */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Current Formulary Status</h3>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <div className="text-sm text-gray-500">Tier Level</div>
+                        <div className="font-semibold text-gray-900">{selectedDrug.tier}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-500">Copay</div>
+                        <div className="font-semibold text-gray-900">{selectedDrug.copay}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-500">Status</div>
+                        <div className="font-semibold text-gray-900">{selectedDrug.status}</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <div className="text-sm text-gray-600">{selectedDrug.tierDescription}</div>
+                {/* Side Effects & Contraindications - Only show in expanded mode */}
+                {isExpanded && (
+                  <>
+                    <div className="mb-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertCircle className="w-5 h-5 text-orange-500" />
+                        <h3 className="text-lg font-semibold text-gray-900">Side Effects</h3>
+                      </div>
+                      <p className="text-gray-700">{selectedDrug.sideEffects}</p>
+                    </div>
+                    </div>
+                    <div className="mb-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Shield className="w-5 h-5 text-red-500" />
+                        <h3 className="text-lg font-semibold text-gray-900">Contraindications</h3>
+                      </div>
+                      <p className="text-gray-700">{selectedDrug.contraindications}</p>
+                    </div>
+                  </>
+                )}
+              </div>
+                  </div>
+              {/* Footer Actions */}
+              <div className="border-t border-gray-200 p-6 bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-gray-500">
+                    Last updated: Today, 3:45 PM
+                  </div>
+                  <div className="flex gap-3">
+                    <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                      Add to Favorites
+                    </button>
+                    <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                      Request Prior Auth
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+                </div>
       {/* Copyright Footer */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/80 text-sm">
         © 2025 copyright by Akshit.
